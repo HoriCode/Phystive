@@ -1,0 +1,694 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f7f1">
+  <meta name="description" content="Small movement breaks for students, office workers, and neighbors. Find your next two-minute reset with PhysTive.">
+  <title>PhysTive — Make room to move</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #1e332b;
+      --muted: #66736b;
+      --green: #286448;
+      --green-dark: #1f4d38;
+      --lime: #d9f27d;
+      --paper: #f7f7f1;
+      --white: #fff;
+      --line: #e6e9de;
+      --peach: #f2b795;
+      --lavender: #dbd3f3;
+      --shadow: 0 20px 60px rgb(31 60 44 / 9%);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Aptos", "Segoe UI", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+
+    .shell {
+      width: min(1160px, calc(100% - 48px));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 88px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.6px;
+    }
+
+    .brand-mark {
+      display: grid;
+      width: 34px;
+      height: 34px;
+      place-items: center;
+      border-radius: 12px;
+      background: var(--lime);
+      color: var(--green-dark);
+    }
+
+    .brand-mark svg { width: 21px; height: 21px; }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 34px;
+      color: #52635a;
+      font-size: 14px;
+      font-weight: 650;
+    }
+
+    .nav-links a:not(.nav-cta):hover { color: var(--green); }
+
+    .nav-cta, .button-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      min-height: 45px;
+      padding: 0 19px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--green);
+      color: var(--white);
+      font-size: 14px;
+      font-weight: 750;
+      transition: background 160ms ease, transform 160ms ease;
+      cursor: pointer;
+    }
+
+    .nav-cta:hover, .button-primary:hover {
+      transform: translateY(-2px);
+      background: var(--green-dark);
+    }
+
+    a:focus-visible, button:focus-visible {
+      outline: 3px solid #94b94d;
+      outline-offset: 4px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.02fr 0.98fr;
+      align-items: center;
+      gap: 54px;
+      padding: 40px 0 92px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1.25px;
+      text-transform: uppercase;
+    }
+
+    .eyebrow-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #85aa4c;
+    }
+
+    h1 {
+      max-width: 580px;
+      margin: 20px 0 19px;
+      font-size: clamp(46px, 6vw, 76px);
+      font-weight: 760;
+      letter-spacing: -5px;
+      line-height: 0.99;
+    }
+
+    h1 em {
+      color: var(--green);
+      font-family: Georgia, serif;
+      font-weight: 500;
+    }
+
+    .hero-copy {
+      max-width: 485px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 19px;
+      margin-top: 29px;
+    }
+
+    .text-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      color: var(--green);
+      font-size: 14px;
+      font-weight: 750;
+    }
+
+    .text-link:hover { gap: 11px; }
+    .text-link, .text-link:hover { transition: gap 160ms ease; }
+
+    .audiences {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 35px;
+    }
+
+    .audience-tag {
+      padding: 8px 12px;
+      border: 1px solid #e4e8dd;
+      border-radius: 999px;
+      background: rgb(255 255 255 / 55%);
+      color: #52635a;
+      font-size: 12px;
+      font-weight: 650;
+    }
+
+    .hero-art {
+      position: relative;
+      min-height: 438px;
+      overflow: hidden;
+      border-radius: 34px;
+      background: #e8efdc;
+    }
+
+    .hero-art::before, .hero-art::after {
+      position: absolute;
+      content: "";
+      border-radius: 50%;
+    }
+
+    .hero-art::before {
+      top: -86px;
+      right: -54px;
+      width: 254px;
+      height: 254px;
+      background: #d8e5bf;
+    }
+
+    .hero-art::after {
+      bottom: -104px;
+      left: -70px;
+      width: 270px;
+      height: 210px;
+      background: #f3c7a9;
+      transform: rotate(-22deg);
+    }
+
+    .art-label {
+      position: absolute;
+      z-index: 2;
+      top: 25px;
+      left: 26px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 13px;
+      border: 1px solid rgb(255 255 255 / 60%);
+      border-radius: 999px;
+      background: rgb(255 255 255 / 78%);
+      color: var(--green-dark);
+      font-size: 12px;
+      font-weight: 750;
+      backdrop-filter: blur(8px);
+    }
+
+    .art-label span {
+      display: grid;
+      width: 21px;
+      height: 21px;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--lime);
+      font-size: 12px;
+    }
+
+    .stretch-illustration {
+      position: absolute;
+      z-index: 1;
+      inset: 47px 12px 0;
+      width: calc(100% - 24px);
+      height: calc(100% - 47px);
+    }
+
+    .art-note {
+      position: absolute;
+      z-index: 2;
+      right: 22px;
+      bottom: 23px;
+      padding: 12px 15px;
+      border-radius: 16px;
+      background: var(--white);
+      box-shadow: 0 10px 30px rgb(31 60 44 / 10%);
+      color: #56675e;
+      font-size: 12px;
+      font-weight: 650;
+    }
+
+    .art-note strong { color: var(--green-dark); }
+
+    .why-section {
+      padding: 71px 0 79px;
+      border-top: 1px solid var(--line);
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 30px;
+      margin-bottom: 31px;
+    }
+
+    h2 {
+      margin: 10px 0 0;
+      font-size: clamp(30px, 4vw, 43px);
+      letter-spacing: -2px;
+      line-height: 1.1;
+    }
+
+    .section-intro {
+      max-width: 350px;
+      margin: 0 0 3px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .benefit-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .benefit-card {
+      min-height: 187px;
+      padding: 23px 23px 21px;
+      border: 1px solid var(--line);
+      border-radius: 21px;
+      background: rgb(255 255 255 / 72%);
+    }
+
+    .benefit-icon {
+      display: grid;
+      width: 39px;
+      height: 39px;
+      place-items: center;
+      border-radius: 13px;
+      background: #edf3de;
+      font-size: 19px;
+    }
+
+    .benefit-card:nth-child(2) .benefit-icon { background: #f8e8dc; }
+    .benefit-card:nth-child(3) .benefit-icon { background: #e9e4f7; }
+
+    .benefit-card h3 {
+      margin: 17px 0 7px;
+      font-size: 16px;
+      letter-spacing: -0.3px;
+    }
+
+    .benefit-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .break-section {
+      display: grid;
+      grid-template-columns: 0.83fr 1.17fr;
+      gap: 38px;
+      align-items: center;
+      margin: 0 0 77px;
+      padding: 38px;
+      border-radius: 28px;
+      background: #233f32;
+      color: var(--white);
+    }
+
+    .break-copy .eyebrow { color: var(--lime); }
+
+    .break-copy h2 {
+      max-width: 360px;
+      margin-top: 15px;
+      font-size: clamp(34px, 4vw, 47px);
+    }
+
+    .break-copy p {
+      max-width: 350px;
+      margin: 14px 0 0;
+      color: #c3d1c7;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .timer-card {
+      padding: 25px;
+      border: 1px solid rgb(255 255 255 / 12%);
+      border-radius: 22px;
+      background: rgb(255 255 255 / 7%);
+    }
+
+    .timer-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #d7e2da;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .timer-display {
+      display: flex;
+      align-items: baseline;
+      gap: 11px;
+      margin: 11px 0 17px;
+    }
+
+    .timer-display strong {
+      color: var(--lime);
+      font-size: 54px;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -3px;
+      line-height: 1;
+    }
+
+    .timer-display span { color: #c3d1c7; font-size: 13px; }
+
+    .progress-track {
+      height: 6px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgb(255 255 255 / 16%);
+    }
+
+    .progress-bar {
+      width: 0;
+      height: 100%;
+      border-radius: inherit;
+      background: var(--lime);
+      transition: width 500ms linear;
+    }
+
+    .timer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .timer-status {
+      margin: 0;
+      color: #c3d1c7;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .timer-controls { display: flex; gap: 8px; flex-shrink: 0; }
+
+    .timer-button {
+      min-height: 39px;
+      padding: 0 15px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--lime);
+      color: var(--green-dark);
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .timer-button.secondary {
+      border: 1px solid rgb(255 255 255 / 24%);
+      background: transparent;
+      color: var(--white);
+    }
+
+    .timer-button:hover { filter: brightness(1.06); }
+
+    .site-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 0 0 28px;
+      color: #718078;
+      font-size: 12px;
+    }
+
+    .footer-brand { color: var(--green-dark); font-weight: 800; }
+
+    @media (max-width: 800px) {
+      .hero { grid-template-columns: 1fr 0.85fr; gap: 28px; }
+      .hero-art { min-height: 365px; }
+      .break-section { grid-template-columns: 1fr; gap: 25px; }
+      .break-copy h2 { max-width: 520px; }
+    }
+
+    @media (max-width: 620px) {
+      .shell { width: min(100% - 36px, 480px); }
+      .site-header { min-height: 72px; }
+      .brand { font-size: 16px; }
+      .nav-links { gap: 14px; }
+      .nav-links > a:not(.nav-cta) { display: none; }
+      .nav-cta { min-height: 40px; padding: 0 14px; font-size: 12px; }
+      .hero { grid-template-columns: 1fr; gap: 31px; padding: 34px 0 67px; }
+      h1 { max-width: 440px; font-size: clamp(49px, 13vw, 68px); letter-spacing: -3.8px; }
+      .hero-copy { font-size: 15px; }
+      .hero-art { min-height: 330px; }
+      .section-heading { display: block; }
+      .section-intro { margin-top: 13px; }
+      .why-section { padding: 57px 0 62px; }
+      .benefit-grid { grid-template-columns: 1fr; gap: 11px; }
+      .benefit-card { min-height: auto; }
+      .break-section { margin-bottom: 56px; padding: 26px 20px; }
+      .timer-card { padding: 20px 17px; }
+      .timer-bottom { align-items: flex-start; flex-direction: column; }
+      .site-footer { align-items: flex-start; flex-direction: column; gap: 7px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header shell">
+    <a class="brand" href="#" aria-label="PhysTive home">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M4 13.5h4l2.1-6 3.8 10 2.1-5H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      PhysTive
+    </a>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="#why-move">Why move</a>
+      <a href="#quick-break">Quick break</a>
+      <a class="nav-cta" href="#quick-break">Take a break <span aria-hidden="true">↗</span></a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero shell" aria-labelledby="hero-title">
+      <div>
+        <div class="eyebrow"><span class="eyebrow-dot"></span> A little movement goes a long way</div>
+        <h1 id="hero-title">Make room to <em>move.</em></h1>
+        <p class="hero-copy">Long day of classes, meetings, or just life? A few minutes of movement can help you feel refreshed, refocused, and ready for what’s next.</p>
+        <div class="hero-actions">
+          <a class="button-primary" href="#quick-break">Find your two minutes <span aria-hidden="true">→</span></a>
+          <a class="text-link" href="#why-move">Why it matters <span aria-hidden="true">↓</span></a>
+        </div>
+        <div class="audiences" aria-label="Made for everyone">
+          <span class="audience-tag">🎒 Students</span>
+          <span class="audience-tag">💻 Office workers</span>
+          <span class="audience-tag">🏡 Neighbors</span>
+        </div>
+      </div>
+
+      <div class="hero-art" role="img" aria-label="Illustration of a person stretching during a movement break">
+        <div class="art-label"><span aria-hidden="true">✦</span> Your moment to reset</div>
+        <svg class="stretch-illustration" viewBox="0 0 470 400" fill="none" aria-hidden="true">
+          <path d="M43 342h385" stroke="#9db28c" stroke-width="2" stroke-linecap="round"/>
+          <path d="M84 342V198c0-8 6-14 14-14h40c8 0 14 6 14 14v144" stroke="#789077" stroke-width="5"/>
+          <path d="M75 204h86M96 184v-20h45v20" stroke="#789077" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M91 222h56v71H91z" fill="#F6C7A9"/>
+          <path d="M353 342V164c0-10 8-18 18-18s18 8 18 18v178" fill="#C3D6A4"/>
+          <path d="M326 343h85" stroke="#77916E" stroke-width="5" stroke-linecap="round"/>
+          <path d="M218 133c-15 0-27-12-27-27s12-27 27-27 27 12 27 27-12 27-27 27Z" fill="#B86F4C"/>
+          <path d="M209 144c-14 2-24 14-22 28l8 66c1 12 12 20 24 18l23-3c12-2 20-13 18-25l-8-62c-2-14-14-24-28-22h-15Z" fill="#47785A"/>
+          <path d="m205 152-39-45c-7-8-5-20 4-25 8-5 18-3 24 4l37 42M243 151l36-55c5-8 16-10 24-5s10 16 5 24l-36 58" stroke="#B86F4C" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="m204 246-25 62c-4 11 1 23 12 27 11 4 23-1 27-12l28-70M247 247l10 64c2 11 12 19 24 17 11-2 19-13 17-24l-12-81" stroke="#284E3B" stroke-width="19" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M184 338h-25c-6 0-10-6-8-12l9-19 30 11-6 15c0 3-0 5 0 5ZM278 330l26 4c6 1 11-4 10-10l-3-19-32 3-1 16c0 3 0 5 0 6Z" fill="#F5F0E4"/>
+          <path d="M138 97c-13-15-12-38 2-53 13-15 37-17 52-4M290 77c15-13 37-13 52 0s17 37 4 52" stroke="#9CB378" stroke-width="4" stroke-linecap="round" stroke-dasharray="2 11"/>
+          <path d="m122 76 12-2-4 12M350 59l-1 13-11-6" stroke="#9CB378" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M220 62c4-13 12-20 25-23M315 179c13-5 23-3 33 5" stroke="#DBA37F" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+        <div class="art-note"><strong>It all adds up.</strong> Start where you are.</div>
+      </div>
+    </section>
+
+    <section class="why-section" id="why-move">
+      <div class="shell">
+        <div class="section-heading">
+          <div>
+            <div class="eyebrow"><span class="eyebrow-dot"></span> Small steps, real difference</div>
+            <h2>Movement fits into your day.</h2>
+          </div>
+          <p class="section-intro">No gym, gear, or big time commitment required. Just a chance to pause, stretch, and feel a little more like you.</p>
+        </div>
+        <div class="benefit-grid">
+          <article class="benefit-card">
+            <div class="benefit-icon" aria-hidden="true">🌿</div>
+            <h3>Clear your head</h3>
+            <p>A quick change of pace can help you reset between lessons, tasks, or screen time.</p>
+          </article>
+          <article class="benefit-card">
+            <div class="benefit-icon" aria-hidden="true">☀️</div>
+            <h3>Feel more refreshed</h3>
+            <p>Stand, stretch, or step outside. A small body break can make the day feel lighter.</p>
+          </article>
+          <article class="benefit-card">
+            <div class="benefit-icon" aria-hidden="true">🤝</div>
+            <h3>Make it a shared thing</h3>
+            <p>Invite a classmate, coworker, or neighbor. Moving together makes breaks more fun.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="break-section shell" id="quick-break" aria-labelledby="break-title">
+      <div class="break-copy">
+        <div class="eyebrow"><span class="eyebrow-dot"></span> No special equipment needed</div>
+        <h2 id="break-title">Two minutes. Just for you.</h2>
+        <p>Drop your shoulders, take an easy stretch, and let yourself reset. Move in a way that feels comfortable for you.</p>
+      </div>
+      <div class="timer-card">
+        <div class="timer-top"><span>YOUR MOVEMENT BREAK</span><span>✦ &nbsp; 2 MIN</span></div>
+        <div class="timer-display" aria-live="off">
+          <strong id="timer">02:00</strong>
+          <span id="timer-caption">Take it at your own pace</span>
+        </div>
+        <div class="progress-track" role="progressbar" aria-label="Break progress" aria-valuemin="0" aria-valuemax="120" aria-valuenow="0">
+          <div class="progress-bar" id="progress"></div>
+        </div>
+        <div class="timer-bottom">
+          <p class="timer-status" id="timer-status" aria-live="polite">Ready when you are. Find a little space and get comfy.</p>
+          <div class="timer-controls">
+            <button class="timer-button" id="toggle-timer" type="button">Start break</button>
+            <button class="timer-button secondary" id="reset-timer" type="button">Reset</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer shell">
+    <span class="footer-brand">PhysTive</span>
+    <span>A gentle reminder: every little bit of movement counts.</span>
+  </footer>
+
+  <script>
+    (() => {
+      const duration = 120;
+      let secondsLeft = duration;
+      let intervalId = null;
+
+      const timer = document.getElementById("timer");
+      const caption = document.getElementById("timer-caption");
+      const status = document.getElementById("timer-status");
+      const progress = document.getElementById("progress");
+      const progressTrack = document.querySelector('[role="progressbar"]');
+      const toggleButton = document.getElementById("toggle-timer");
+      const resetButton = document.getElementById("reset-timer");
+
+      function render() {
+        const minutes = Math.floor(secondsLeft / 60);
+        const seconds = secondsLeft % 60;
+        timer.textContent = `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+        const elapsed = duration - secondsLeft;
+        progress.style.width = `${(elapsed / duration) * 100}%`;
+        progressTrack.setAttribute("aria-valuenow", String(elapsed));
+      }
+
+      function finish() {
+        clearInterval(intervalId);
+        intervalId = null;
+        toggleButton.textContent = "Start again";
+        caption.textContent = "You made space for yourself";
+        status.textContent = "Lovely work. Take a breath and carry on when you’re ready.";
+      }
+
+      toggleButton.addEventListener("click", () => {
+        if (secondsLeft === 0) {
+          secondsLeft = duration;
+          render();
+        }
+
+        if (intervalId !== null) {
+          clearInterval(intervalId);
+          intervalId = null;
+          toggleButton.textContent = "Resume break";
+          caption.textContent = "Paused — take your time";
+          status.textContent = "Your break is paused. Pick it back up whenever you’re ready.";
+          return;
+        }
+
+        toggleButton.textContent = "Pause";
+        caption.textContent = "Breathe, stretch, and move";
+        status.textContent = "That’s it. Gentle movement, at your own pace.";
+        intervalId = setInterval(() => {
+          secondsLeft -= 1;
+          render();
+          if (secondsLeft === 0) finish();
+        }, 1000);
+      });
+
+      resetButton.addEventListener("click", () => {
+        clearInterval(intervalId);
+        intervalId = null;
+        secondsLeft = duration;
+        toggleButton.textContent = "Start break";
+        caption.textContent = "Take it at your own pace";
+        status.textContent = "Ready when you are. Find a little space and get comfy.";
+        render();
+      });
+    })();
+  </script>
+</body>
+</html>
